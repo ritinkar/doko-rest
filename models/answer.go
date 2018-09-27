@@ -6,5 +6,12 @@ import "github.com/jinzhu/gorm"
 type Answer struct {
 	gorm.Model
 	QuestionID uint
-	text       string `gorm:"type:varchar(500)"`
+	Text       string `gorm:"type:varchar(500)" json:"text"`
+	Correct    bool   `gorm:"type:BOOLEAN" json:"correct"`
+}
+
+// Create : Add a new answer to db
+func (answer *Answer) Create() {
+	db := GetDB()
+	db.Create(answer)
 }

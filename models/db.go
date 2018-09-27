@@ -1,18 +1,27 @@
-package main
+package models
 
 import (
 	// models
-	"doko-rest/models"
 	"fmt"
 	"log"
 	"os"
 
 	"github.com/jinzhu/gorm"
+	"github.com/joho/godotenv"
+
+	// dialect for postgres
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
 var db *gorm.DB //database
 
 func init() {
+
+	// handle dotenv
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
 	// handle db
 	dbString := fmt.Sprintf(
 		"host=%v port=%v user=%v dbname=%v password=%v sslmode=disable",
@@ -34,7 +43,7 @@ func init() {
 		db = conn
 	}
 
-	db.AutoMigrate(&models.Question{}, &models.Answer{})
+	db.AutoMigrate(&Question{}, &Answer{})
 }
 
 // GetDB : returns a handle to the DB object

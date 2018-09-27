@@ -6,6 +6,7 @@ import (
 	"os"
 
 	// models
+	"doko-rest/models"
 
 	// route handlers
 	"doko-rest/controllers"
@@ -14,10 +15,7 @@ import (
 	"github.com/gorilla/handlers"
 	// router
 	"github.com/gorilla/mux"
-	// orm for go
 
-	// dialect for postgres
-	_ "github.com/jinzhu/gorm/dialects/postgres"
 	// handle dotenv
 	"github.com/joho/godotenv"
 )
@@ -31,7 +29,7 @@ func main() {
 	}
 
 	// close the db connection when main ends
-	db := GetDB()
+	db := models.GetDB()
 	defer db.Close()
 
 	// mux
