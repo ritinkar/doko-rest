@@ -10,6 +10,9 @@ type Answer struct {
 	Correct    bool   `gorm:"type:BOOLEAN" json:"correct"`
 }
 
+// Answers : slice of answers
+type Answers []Answer
+
 // Create : Add a new answer to db
 func (answer *Answer) Create() {
 	db := GetDB()

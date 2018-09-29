@@ -36,8 +36,8 @@ func main() {
 	r := mux.NewRouter()
 
 	r.HandleFunc("/heart", controllers.HeartBeat)
-	r.HandleFunc("/question", controllers.CreateQuestion)
-
+	r.HandleFunc("/question", controllers.CreateQuestion).Methods("POST")
+	r.HandleFunc("/question", controllers.GetQuestions).Methods("GET")
 	// Logged router
 	loggedRouter := handlers.LoggingHandler(os.Stdout, r)
 	log.Fatal(http.ListenAndServe(":8765", loggedRouter))
