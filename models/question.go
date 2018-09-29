@@ -22,5 +22,5 @@ func (question *Question) Create() {
 
 // ReadAll : ReadAll the questions
 func (questions *Questions) ReadAll() {
-	db.Find(questions)
+	db.Preload("Answers").Find(questions)
 }
