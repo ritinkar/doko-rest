@@ -43,7 +43,7 @@ func init() {
 		db = conn
 	}
 
-	db.AutoMigrate(&Question{}, &Answer{})
+	db.AutoMigrate(&Question{}, &Answer{}, &User{})
 }
 
 // GetDB : returns a handle to the DB object

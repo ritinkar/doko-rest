@@ -38,6 +38,7 @@ func main() {
 	r.HandleFunc("/heart", controllers.HeartBeat)
 	r.HandleFunc("/question", controllers.CreateQuestion).Methods("POST")
 	r.HandleFunc("/question", controllers.GetQuestions).Methods("GET")
+	r.HandleFunc("/user", controllers.CreateUser).Methods("POST")
 	// Logged router
 	loggedRouter := handlers.LoggingHandler(os.Stdout, r)
 	log.Fatal(http.ListenAndServe(":8765", loggedRouter))

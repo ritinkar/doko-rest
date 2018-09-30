@@ -15,9 +15,7 @@ type Questions []Question
 // Create : Add a new question to db
 func (question *Question) Create() {
 	db := GetDB()
-	db.NewRecord(*question)
 	db.Create(question)
-	db.NewRecord(*question)
 }
 
 // ReadAll : ReadAll the questions
