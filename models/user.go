@@ -32,3 +32,11 @@ func (user *User) Create(password string) {
 		log.Fatal(err)
 	}
 }
+
+// ReadOne : Read a user from db
+func (user *User) ReadOne() {
+	db := GetDB()
+	if err := db.First(user).Error; err != nil {
+		log.Fatal(err)
+	}
+}
