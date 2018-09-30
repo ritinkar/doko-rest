@@ -20,5 +20,7 @@ func (question *Question) Create() {
 
 // ReadAll : ReadAll the questions
 func (questions *Questions) ReadAll() {
-	db.Preload("Answers").Find(questions)
+	db.Preload("Answers", func(db *gorm.DB) *gorm.DB {
+		return db.Select("question_id, text, correct")
+	}).Select("id, text").Find(questions)
 }
