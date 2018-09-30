@@ -17,7 +17,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	var request userRequest
 	json.NewDecoder(r.Body).Decode(&request)
 	salt := utils.GenerateSalt()
-	newUser := &models.User{Username: request.Username, Salt: salt}
+	newUser := &models.User{Username: request.Username, Salt: salt, Role: "admin"}
 	res := utils.Message(true, "User Created")
 	newUser.Create(request.Password)
 	utils.Respond(w, res)

@@ -14,6 +14,7 @@ type User struct {
 	gorm.Model
 	Username       string `gorm:"unique" json:"username"`
 	HashedPassword string `gorm:"type:varchar(1024)" json:"hashed_password"`
+	Role           string `gorm:"type:varchar(64)" json:"role"`
 	Salt           string `gorm:"type:varchar(64)" json:"salt"`
 }
 
