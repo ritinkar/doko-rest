@@ -4,8 +4,12 @@ import (
 	"doko-rest/models"
 	"doko-rest/utils"
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
+	"os"
+
+	jwt "github.com/dgrijalva/jwt-go"
 )
 
 type userRequest struct {
@@ -36,7 +40,16 @@ func AuthenticateUser(w http.ResponseWriter, r *http.Request) {
 		existingUser.HashedPassword,
 		request.Password,
 		existingUser.Salt); authenticated {
-		res := utils.CreateResponse(true, map[string]string{"token": "foobar"})
+		token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+			"username": existingUser.Username,
+			"role":     existingUser.Role,
+		})
+		tokenString, error := token.SignedString([]byte(os.Getenv("JWT_SECRET")))
+		if error != nil {
+			fmt.Println(error)
+		}
+
+		res := utils.CreateResponse(true, map[string]string{"token": tokenString})
 		utils.Respond(w, res)
 	} else {
 		res := utils.Message(false, "Wrong username or password")
